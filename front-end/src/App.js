@@ -1,11 +1,16 @@
-import Global from "./styles/global";
+import React from "react";
+import { Router } from "react-router-dom";
+import Routes from "./routes";
+import GlobalStyle from "./styles/global";
+
+import history from "./services/history";
 
 function App() {
   return (
-    <>
-      <Global />
-      <h1>Auth app</h1>
-    </>
+    <Router history={history}>
+      <Routes />
+      <GlobalStyle />
+    </Router>
   );
 }
 
