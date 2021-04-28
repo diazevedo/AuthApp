@@ -1,8 +1,11 @@
+import Global from "./styles/global";
+
 function App() {
   return (
-    <div>
+    <>
+      <Global />
       <h1>Auth app</h1>
-    </div>
+    </>
   );
 }
 
