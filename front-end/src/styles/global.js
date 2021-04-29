@@ -56,13 +56,18 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
   
-  html, body {
+  html, body, #root{
     width: 100%;
     height: 100%;
   }
+  * {
+    box-sizing: border-box;
+  }
 
   body {
-    -webkit-font-smoothing: antialiased;
+    /* -webkit-font-smoothing: antialiased; */
+    background-color: #333333;
+    font-family: 'Noto Sans JP', sans-serif;
   }
 
 
