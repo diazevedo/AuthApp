@@ -3,23 +3,34 @@ import * as Styled from "./styles";
 
 import LogoLink from "../../components/LogoLink";
 import Form from "../../components/Form";
-import InputText from "../../components/InputText";
+
+import InputWithIcon from "../../components/InputWithIcon";
+import Button from "../../components/Button/styles";
+import Socials from "../../parts/Socials";
 
 const Login = () => {
   return (
     <Styled.Container>
       <LogoLink />
-      <Styled.Title>
-        Join thousands of learners from around the world
-      </Styled.Title>
-      <Styled.Text>
-        Master web development by making real-life projects. There are multiple
-        paths for you to choose
-      </Styled.Text>
 
       <Form>
-        <InputText />
+        <Styled.Fieldset>
+          <Styled.Legend>Login</Styled.Legend>
+          <InputWithIcon icon="mail" type="email" placeholder="Email" />
+          <InputWithIcon icon="lock" type="password" placeholder="Password" />
+          <Button>Login</Button>
+        </Styled.Fieldset>
       </Form>
+      <Styled.TextNormal>
+        or continue with these social profile
+      </Styled.TextNormal>
+
+      <Socials />
+
+      <Styled.TextNormal>
+        Don't have an account yet?{" "}
+        <Styled.LinkTo to="/register">Register</Styled.LinkTo>
+      </Styled.TextNormal>
     </Styled.Container>
   );
 };

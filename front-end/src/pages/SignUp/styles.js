@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  width: 100%;
-  border-radius: 24px;
   padding: 2rem;
+  width: 100%;
+  max-width: 47.5rem;
 
   @media (min-width: 558px) {
     border: 1px solid #bdbdbd;
@@ -37,25 +37,8 @@ export const TextNormal = styled.p`
   text-align: center;
 
   margin-top: 2rem;
-
-  &:last-child {
-    margin-bottom: 8rem;
-  }
 `;
 
 export const LinkTo = styled(Link)`
   color: #2f80ed;
-`;
-
-export const Fieldset = styled.fieldset`
-  font-size: 1.8rem;
-  color: #e0e0e0;
-
-  & > * {
-    margin-bottom: 1.5rem;
-  }
-`;
-
-export const Legend = styled.legend`
-  margin-bottom: 3rem;
 `;

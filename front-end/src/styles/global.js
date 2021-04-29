@@ -54,22 +54,26 @@ const GlobalStyle = createGlobalStyle`
   /** normalise */
   html {
     font-size: 62.5%;
-  }
-  
-  html, body, #root{
     width: 100%;
     height: 100%;
+
+    background: #999;
   }
+
   * {
     box-sizing: border-box;
   }
 
   body {
     /* -webkit-font-smoothing: antialiased; */
-    background-color: #333333;
-    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #252429;
+    font-family: 'Noto Sans', sans-serif;
+    height: 100%;
   }
 
+  #root {
+    height: 100%;
+  }
 
   a {
     text-decoration: none;
@@ -83,6 +87,8 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+    border: none;
+    background: none;
   }
 `;
 

@@ -5,10 +5,14 @@ const Wrapper = styled.main`
   width: 100%;
   max-width: 47.5rem;
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  @media (min-width: 558px) {
+    justify-content: center;
+  }
 `;
 
 export default Wrapper;
