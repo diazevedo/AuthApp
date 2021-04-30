@@ -51,13 +51,12 @@ const GlobalStyle = createGlobalStyle`
     border-spacing: 0;
   }
 
-  /** normalise */
+  /** basics */
   html {
     font-size: 62.5%;
     width: 100%;
-    height: 100%;
-
-    background: #999;
+    min-height: 100vh;
+    background-color: #252429;
   }
 
   * {
@@ -65,14 +64,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    /* -webkit-font-smoothing: antialiased; */
+    width: 100%;
+    min-height: 100vh;
     background-color: #252429;
     font-family: 'Noto Sans', sans-serif;
-    height: 100%;
   }
-
+  
   #root {
-    height: 100%;
+    min-height: 100vh;
   }
 
   a {
