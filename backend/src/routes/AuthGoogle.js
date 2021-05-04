@@ -16,11 +16,10 @@ routes.get(
   "/auth/google/loggedin",
   passport.authenticate("google", {
     failureRedirect: "/login",
-  })
+  }),
+  (req, res) => {
+    res.json({ message: "GOOGLE", user: req.user });
+  }
 );
-
-routes.get("/auth/google/loggedin", (req, res) => {
-  res.json({ message: "GOOGLE", user: req.user });
-});
 
 export default routes;
