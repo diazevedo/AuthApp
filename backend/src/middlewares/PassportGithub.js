@@ -3,40 +3,30 @@ import GithubStrategy from "passport-github2";
 
 import User from "../schemas/User.js";
 
-class PassportGithub {
-  constructor() {
-    this.clientID = process.env.GITHUB_APP_KEY;
-    this.clientSecret = process.env.GITHUB_CLIENT_SECRET;
-    this.callbackURL = `${process.env.APP_URL}/auth/github/callback`;
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GITHUB_APP_KEY,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: `${process.env.APP_URL}/auth/github/callback`,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      const user = await User.findOne({ uiid: profile.id });
 
-    this.passport();
-  }
+      if (user) return done(null, user);
 
-  passport() {
-    passport.use(
-      new GithubStrategy(
-        {
-          clientID: this.clientID,
-          clientSecret: this.clientSecret,
-          callbackURL: this.callbackURL,
-        },
-        async function (accessToken, refreshToken, profile, done) {
-          const user = await User.findOne({ uiid: profile.id });
+      const userCreated = await User.create({
+        uiid: profile.id,
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        bio: profile._json.bio || "",
+      });
 
-          if (user) return done(null, user);
+      //https://avatars.githubusercontent.com/u/21248648?v=4
 
-          const userCreated = await User.create({
-            uiid: profile.id,
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            bio: profile._json.bio || "",
-          });
+      return done(null, userCreated);
+    }
+  )
+);
 
-          return done(null, userCreated);
-        }
-      )
-    );
-  }
-}
-
-export default new PassportGithub();
+export default passport;
