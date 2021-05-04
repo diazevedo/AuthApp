@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 
-import "./../controllers/GoogleController.js";
+import "../middlewares/PassportGoogle.js";
 
 const routes = Router();
 
@@ -13,11 +13,14 @@ routes.get(
 );
 
 routes.get(
-  "/auth/google/callback",
+  "/auth/google/loggedin",
   passport.authenticate("google", {
     failureRedirect: "/login",
-  }),
-  (req, res) => res.json({ message: "user looged in", user: req.user })
+  })
 );
+
+routes.get("/auth/google/loggedin", (req, res) => {
+  res.json({ message: "GOOGLE", user: req.user });
+});
 
 export default routes;
