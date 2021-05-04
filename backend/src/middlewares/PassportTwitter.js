@@ -3,39 +3,27 @@ import TwitterStrategy from "passport-twitter";
 
 import User from "../schemas/User.js";
 
-class PassportTwitter {
-  constructor() {
-    this.consumerKey = process.env.TWITTER_APP_KEY;
-    this.consumerSecret = process.env.TWITTER_SECRET;
-    this.callbackURL = `/auth/twitter/callback`;
+passport.use(
+  new TwitterStrategy(
+    {
+      consumerKey: process.env.TWITTER_APP_KEY,
+      consumerSecret: process.env.TWITTER_SECRET,
+      callbackURL: `/auth/twitter/callback`,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      const user = await User.findOne({ uiid: profile.id });
 
-    this.passport();
-  }
+      if (user) return done(null, user);
 
-  passport() {
-    passport.use(
-      new TwitterStrategy(
-        {
-          consumerKey: this.consumerKey,
-          consumerSecret: this.consumerSecret,
-          callbackURL: this.callbackURL,
-        },
-        async function (accessToken, refreshToken, profile, done) {
-          const user = await User.findOne({ uiid: profile.id });
+      const userCreated = await User.create({
+        uiid: profile.id,
+        name: profile.displayName,
+        bio: profile._json.description,
+      });
 
-          if (user) return done(null, user);
+      return done(null, userCreated);
+    }
+  )
+);
 
-          const userCreated = await User.create({
-            uiid: profile.id,
-            name: profile.displayName,
-            bio: profile._json.description,
-          });
-
-          return done(null, userCreated);
-        }
-      )
-    );
-  }
-}
-
-export default new PassportTwitter();
+export default passport;
