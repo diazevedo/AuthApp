@@ -1,23 +1,23 @@
 import passport from "passport";
-import GoogleStrategy from "passport-google-oauth20";
+import TwitterStrategy from "passport-twitter";
 
 import User from "../schemas/User.js";
 
-class PassportGoogle {
+class PassportTwitter {
   constructor() {
-    this.clientID = process.env.GOOGLE_CLIENT_ID;
-    this.clientSecret = process.env.GOOGLE_APP_SECRET;
-    this.callbackURL = `${process.env.APP_URL}/auth/google/loggedin`;
+    this.consumerKey = process.env.TWITTER_APP_KEY;
+    this.consumerSecret = process.env.TWITTER_SECRET;
+    this.callbackURL = `/auth/twitter/callback`;
 
     this.passport();
   }
 
   passport() {
     passport.use(
-      new GoogleStrategy(
+      new TwitterStrategy(
         {
-          clientID: this.clientID,
-          clientSecret: this.clientSecret,
+          consumerKey: this.consumerKey,
+          consumerSecret: this.consumerSecret,
           callbackURL: this.callbackURL,
         },
         async function (accessToken, refreshToken, profile, done) {
@@ -28,7 +28,7 @@ class PassportGoogle {
           const userCreated = await User.create({
             uiid: profile.id,
             name: profile.displayName,
-            email: profile.emails[0].value,
+            bio: profile._json.description,
           });
 
           return done(null, userCreated);
@@ -38,4 +38,4 @@ class PassportGoogle {
   }
 }
 
-export default new PassportGoogle();
+export default new PassportTwitter();

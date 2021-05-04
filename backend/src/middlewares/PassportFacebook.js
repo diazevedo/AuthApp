@@ -3,7 +3,7 @@ import FacebookStrategy from "passport-facebook";
 
 import User from "../schemas/User.js";
 
-class FacebookController {
+class PassportFacebook {
   constructor() {
     this.clientID = process.env.FACEBOOK_APP_ID;
     this.clientSecret = process.env.FACEBOOK_APP_SECRET;
@@ -45,4 +45,4 @@ class FacebookController {
   }
 }
 
-export default new FacebookController();
+export default new PassportFacebook();
