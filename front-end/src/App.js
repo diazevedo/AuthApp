@@ -5,12 +5,16 @@ import GlobalStyle from "./styles/global";
 
 import history from "./services/history";
 
+import { AuthProvider } from "./Context/Auth";
+
 function App() {
   return (
-    <Router history={history}>
-      <Routes />
-      <GlobalStyle />
-    </Router>
+    <AuthProvider>
+      <Router history={history}>
+        <Routes />
+        <GlobalStyle />
+      </Router>
+    </AuthProvider>
   );
 }
 

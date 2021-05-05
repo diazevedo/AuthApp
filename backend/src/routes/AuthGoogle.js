@@ -17,10 +17,7 @@ routes.get(
   passport.authenticate("google", {
     successRedirect: process.env.APP_REDIRECT_URL,
     failureRedirect: "/login",
-  }),
-  (req, res) => {
-    res.json({ message: "GOOGLE", user: req.user });
-  }
+  })
 );
 
 export default routes;

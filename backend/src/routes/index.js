@@ -15,8 +15,7 @@ routes.use(TwitterRoutes);
 routes.use(GithubRoutes);
 
 const authCheck = (req, res, next) => {
-  if (!req.user) res.json({ success: false });
-
+  if (!req.user) return res.status(401).json({ success: false });
   next();
 };
 
