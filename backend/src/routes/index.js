@@ -14,12 +14,18 @@ routes.use(FacebookRoutes);
 routes.use(TwitterRoutes);
 routes.use(GithubRoutes);
 
-routes.get("/", (req, res) => {
-  res.json({ message: "ok" });
+const authCheck = (req, res, next) => {
+  if (!req.user) res.json({ success: false });
+
+  next();
+};
+
+routes.get("/", authCheck, (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
 });
 
 routes.get("/login", (req, res) => {
-  res.json({ message: "error" });
+  res.json({ success: false });
 });
 
 export default routes;

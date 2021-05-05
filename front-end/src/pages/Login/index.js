@@ -8,7 +8,26 @@ import InputWithIcon from "../../components/InputWithIcon";
 import Button from "../../components/Button/styles";
 import Socials from "../../parts/Socials";
 
+import axios from "axios";
+
 const Login = () => {
+  React.useEffect(() => {
+    const login = async () => {
+      try {
+        const response = await axios.get("http://localhost:3333/", {
+          withCredentials: true,
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        console.log("DONE");
+      }
+    };
+
+    login();
+  }, []);
+
   return (
     <Styled.Container>
       <LogoLink />

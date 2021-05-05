@@ -2,8 +2,8 @@ import "dotenv/config.js";
 import express from "express";
 import cors from "cors";
 import passport from "passport";
-import session from "express-session";
 import routes from "./routes/index.js";
+import cookieSession from "cookie-session";
 
 import "./database/index.js";
 import User from "./schemas/User.js";
@@ -18,18 +18,24 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
-    this.server.use(cors());
+
+    this.server.use((req, res, next) => {
+      res.header("Access-Control-Allow-Credentials", "true");
+      next();
+    });
 
     this.server.use(
-      session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
+      cors({
+        origin: [
+          "http://127.0.0.1:3000/",
+          "http://127.0.0.1:3000",
+          "http://localhost:3000",
+          "http://localhost:3000/",
+        ],
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
+        credentials: "include",
       })
     );
-
-    this.server.use(passport.initialize());
-    this.server.use(passport.session());
 
     passport.serializeUser(function (user, done) {
       done(null, user.id);
@@ -40,6 +46,16 @@ class App {
         done(err, user);
       });
     });
+
+    this.server.use(
+      cookieSession({
+        maxAge: 24 * 60 * 60 * 1000,
+        keys: [process.env.SESSION_SECRET],
+      })
+    );
+
+    this.server.use(passport.initialize());
+    this.server.use(passport.session());
   }
 
   routes() {

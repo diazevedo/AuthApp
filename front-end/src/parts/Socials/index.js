@@ -27,13 +27,17 @@ const data = [
 ];
 
 function Socials() {
+  const handleClick = () => {
+    window.open("http://localhost:3333/auth/google", "_self");
+  };
+
   return (
     <Styled.Container>
       {data.map(({ label, link, icon }) => (
         <IconLink
           key={label}
           text={link}
-          handleClick={() => console.log({ label })}
+          handleClick={handleClick}
           icon={icon}
         />
       ))}

@@ -15,6 +15,7 @@ routes.get(
 routes.get(
   "/auth/google/loggedin",
   passport.authenticate("google", {
+    successRedirect: process.env.APP_REDIRECT_URL,
     failureRedirect: "/login",
   }),
   (req, res) => {
