@@ -68,6 +68,9 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-color: #252429;
     font-family: 'Noto Sans', sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   #root {

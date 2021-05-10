@@ -5,7 +5,7 @@ import LogoLink from "../../components/LogoLink";
 import Form from "../../components/Form";
 
 import InputWithIcon from "../../components/InputWithIcon";
-import Button from "../../components/Button/styles";
+import Button from "../../components/Button";
 import Socials from "../../parts/Socials";
 
 const Login = () => {
