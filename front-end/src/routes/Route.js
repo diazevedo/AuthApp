@@ -7,12 +7,17 @@ import { useAuthState } from "../Context/Auth";
 
 const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
   const { user, isPending } = useAuthState();
+  console.log(user);
 
-  if (isPending) Component = Loading;
+  if (isPending) return <Loading />;
 
-  if (!user && isPrivate) return <Redirect to="/" />;
+  if (!user && isPrivate) {
+    return <Redirect to="/" />;
+  }
 
-  if (user && !isPrivate) return <Redirect to="/profile" />;
+  if (user && !isPrivate) {
+    return <Redirect to="/profile" />;
+  }
 
   const WrapperComp = user ? AuthenticatedLayout : Wrapper;
 

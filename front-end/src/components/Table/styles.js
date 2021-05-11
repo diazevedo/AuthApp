@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 100%;
-  max-width: 84.5rem;
-
   @media (min-width: 558px) {
     border: 1px solid #e0e0e0;
     border-radius: 12px;
@@ -16,7 +13,6 @@ export const Table = styled.table`
 
   border-collapse: collapse;
   border-style: hidden;
-  margin: 0 auto;
 
   table-layout: fixed;
 
@@ -46,6 +42,10 @@ export const CaptionContainer = styled.div`
   > div {
     margin-right: 6rem;
 
+    > p {
+      margin-top: 1rem;
+    }
+
     > p:first-child {
       @media (min-width: 558px) {
         font-size: 2.4rem;
@@ -58,10 +58,6 @@ export const CaptionContainer = styled.div`
       @media (min-width: 558px) {
         font-size: 1.4rem;
       }
-    }
-
-    > p {
-      margin-top: 1rem;
     }
   }
 `;

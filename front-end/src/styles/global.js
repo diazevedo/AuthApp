@@ -92,6 +92,10 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background: none;
   }
+
+  input, textarea {
+    font-family: inherit;
+  }
 `;
 
 export default GlobalStyle;
