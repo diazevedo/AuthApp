@@ -120,11 +120,11 @@ export const ImageContainer = styled.div`
   &:after {
     content: "";
 
-    width: 72px;
-    height: 72px;
+    width: 7.2rem;
+    height: 7.2rem;
 
     position: absolute;
-    top: 0;
+    top: 0.5rem;
     left: 0;
 
     background-repeat: no-repeat;

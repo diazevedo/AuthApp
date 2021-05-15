@@ -26,11 +26,17 @@ export const AuthProvider = ({ children }) => {
     login();
   }, []);
 
-  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ state, update: setState }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuthState = () => {
   const state = React.useContext(AuthContext);
+  console.log("useAuthState");
+  console.log(state);
 
   const isPending = state.status === "pending";
   const isError = state.status === "error";

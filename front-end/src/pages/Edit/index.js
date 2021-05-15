@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+
 import * as Styled from "./styles";
 
 import LinkLeftIcon from "../../components/LinkLeftIcon";
@@ -6,9 +8,58 @@ import Text from "../../components/Text";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 
+import { useAuthState } from "../../Context/Auth";
+
+import api from "../../services/api";
+
+const defaultUserValues = {
+  name: "",
+  bio: "youe bio",
+  email: "",
+  phone: "99999",
+};
+
 const Edit = () => {
-  const handleSubmit = (e) => {
+  const { state, update } = useAuthState();
+
+  const { user } = state;
+  const [details, setDetails] = useState({ ...defaultUserValues, ...user });
+  const [hasImageChanged, setHasImageChanged] = useState(false);
+
+  const refFile = useRef(null);
+  const refImage = useRef(null);
+
+  const handleInputs = (e) => {
+    setDetails({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleInputImage = (e) => {
     e.preventDefault();
+    refImage.current.src = URL.createObjectURL(refFile.current.files[0]);
+    setHasImageChanged(true);
+  };
+
+  const saveImage = async () => {
+    const fileForm = new FormData();
+    fileForm.append("file", refFile.current.files[0]);
+
+    const { data } = await api.post("/files", fileForm, {
+      withCredentials: true,
+    });
+
+    return data;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (hasImageChanged) await saveImage();
+
+    const response = await api.put("/users", details, {
+      withCredentials: true,
+    });
+
+    update({ user: response.data.user });
   };
 
   return (
@@ -23,31 +74,59 @@ const Edit = () => {
         <Form handleSubmit={handleSubmit}>
           <Styled.ImageContainer>
             <Styled.Label htmlFor="file">
-              <img src="https://i.pravatar.cc/120?img=11" alt="" />
+              <img
+                src={`${process.env.REACT_APP_API}/files/${user.file.filename}`}
+                alt="user"
+                ref={refImage}
+              />
               Change Photo
               <input
                 type="file"
                 name="file"
                 id="file"
                 accept="image/png, image/jpeg"
+                ref={refFile}
+                onChange={handleInputImage}
               />
             </Styled.Label>
           </Styled.ImageContainer>
 
-          <Styled.Label htmlFor="name"> Name</Styled.Label>
-          <InputText placeholder="Enter your name..." id="name" />
+          <Styled.Label htmlFor="name">Name</Styled.Label>
+          <InputText
+            name="name"
+            placeholder="Enter your name..."
+            id="name"
+            value={details.name}
+            onChange={handleInputs}
+          />
 
           <Styled.Label htmlFor="bio">Bio</Styled.Label>
-          <Styled.TextArea placeholder="Enter your bio..." id="bio" />
+          <Styled.TextArea
+            name="bio"
+            placeholder="Enter your bio..."
+            id="bio"
+            value={details.bio}
+            onChange={handleInputs}
+          />
 
           <Styled.Label htmlFor="phone">Phone</Styled.Label>
-          <InputText placeholder="Enter your phone..." type="tel" id="phone" />
+          <InputText
+            name="phone"
+            placeholder="Enter your phone..."
+            type="tel"
+            id="phone"
+            value={details.phone}
+            onChange={handleInputs}
+          />
 
           <Styled.Label htmlFor="email">Email</Styled.Label>
           <InputText
+            name="email"
             placeholder="Enter your email..."
             type="email"
             id="email"
+            defaultValue={details.email}
+            onChange={handleInputs}
           />
 
           <Styled.Button type="submit">Save</Styled.Button>

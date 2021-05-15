@@ -37,4 +37,9 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+UserSchema.pre("save", (next) => {
+  console.log("PASSWORD WILL BE ADDED HERE");
+  next();
+});
+
 export default mongoose.model("User", UserSchema);

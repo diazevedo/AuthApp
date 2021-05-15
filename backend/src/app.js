@@ -5,7 +5,7 @@ import passport from "passport";
 import routes from "./routes/index.js";
 import cookieSession from "cookie-session";
 
-import "./database/index.js";
+import DB from "./database/index.js";
 import User from "./schemas/User.js";
 
 class App {
@@ -42,8 +42,25 @@ class App {
     });
 
     passport.deserializeUser(function (id, done) {
-      User.findById(id, function (err, user) {
-        done(err, user);
+      User.findById(id, function (err, userFound) {
+        const user = Object.assign({}, userFound._doc);
+
+        DB.gfs
+          .find(
+            {
+              "metadata.userId": user.id,
+            },
+            { sort: { uploadDate: -1 } }
+          )
+          .toArray((err, files) => {
+            user.file = {};
+            if (!files || files.length === 0) {
+              done(err, user);
+            }
+
+            user.file = files[0];
+            done(err, user);
+          });
       });
     });
 

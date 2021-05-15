@@ -7,7 +7,9 @@ import EditButton from "../ActionButton";
 import { useAuthState } from "../../Context/Auth";
 
 const Table = () => {
-  const { user } = useAuthState();
+  const {
+    state: { user },
+  } = useAuthState();
 
   return (
     <Styled.Wrapper>
@@ -28,7 +30,7 @@ const Table = () => {
             <th>Photo</th>
             <td>
               <img
-                src="https://i.pravatar.cc/120?img=11"
+                src={`${process.env.REACT_APP_API}/files/${user.file.filename}`}
                 alt={`${user.name}'s profile`}
               />
             </td>
