@@ -129,6 +129,15 @@ const Edit = () => {
             onChange={handleInputs}
           />
 
+          <Styled.Label htmlFor="password">Password</Styled.Label>
+          <InputText
+            name="password"
+            type="password"
+            id="password"
+            placeholder="Enter your password..."
+            onChange={handleInputs}
+          />
+
           <Styled.Button type="submit">Save</Styled.Button>
         </Form>
       </div>

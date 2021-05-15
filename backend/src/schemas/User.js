@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     required: false,
     default: "",
   },
-  password_hash: {
+  password: {
     type: String,
     required: false,
   },
@@ -35,11 +35,6 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-});
-
-UserSchema.pre("save", (next) => {
-  console.log("PASSWORD WILL BE ADDED HERE");
-  next();
 });
 
 export default mongoose.model("User", UserSchema);

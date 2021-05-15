@@ -1,6 +1,8 @@
 import User from "../schemas/User.js";
 import File from "../database/index.js";
 
+import bcrypt from "bcryptjs";
+
 class UserController {
   async index(req, res) {
     return res.json({ message: "UserController Index" });
@@ -12,6 +14,9 @@ class UserController {
 
   async update(req, res) {
     const user = await User.findById(req.user._id);
+
+    req.body.password = await bcrypt.hash(req.body.password, 8);
+
     user.overwrite(req.body);
     await user.save();
 
