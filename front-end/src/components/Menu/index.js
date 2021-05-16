@@ -1,7 +1,15 @@
 import { NavLink } from "react-router-dom";
 import * as Styled from "./styles";
 
+import api from "../../services/api";
+import history from "../../services/history";
+
 const Menu = ({ open }) => {
+  const handleButtonLogout = async () => {
+    const response = await api.get("logout", { withCredentials: true });
+    if (response.status === 205) history.go("/");
+  };
+
   return (
     <Styled.Container open={open}>
       <ul>
@@ -13,9 +21,10 @@ const Menu = ({ open }) => {
             group chat
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/logout">Logout</NavLink>
-        </li>
+
+        <Styled.LastLi>
+          <button onClick={handleButtonLogout}>Logout</button>
+        </Styled.LastLi>
       </ul>
     </Styled.Container>
   );

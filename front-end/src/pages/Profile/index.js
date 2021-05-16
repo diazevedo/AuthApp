@@ -5,13 +5,7 @@ import Table from "../../components/Table";
 
 import * as Styled from "./styles";
 
-import { useAuthState } from "../../Context/Auth";
-
 const Profile = () => {
-  const { user } = useAuthState();
-
-  React.useEffect(() => {}, []);
-
   return (
     <Styled.Container>
       <TextOne>Personal Info</TextOne>

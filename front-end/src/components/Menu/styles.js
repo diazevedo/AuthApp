@@ -51,10 +51,8 @@ export const Container = styled.div`
 
       a {
         color: #e0e0e0;
-        width: 100%;
         text-transform: capitalize;
         font-size: 1.2rem;
-        font-weight: 500;
         background-image: url(${profile});
         background-position: 10px center;
         background-repeat: no-repeat;
@@ -75,18 +73,25 @@ export const Container = styled.div`
         }
       }
     }
+  }
+`;
 
-    & li:last-child {
-      border-top: 1px solid #e0e0e0;
-      height: 6.5rem;
-      line-height: 6.5rem;
+export const LastLi = styled.li`
+  width: 100%;
+  height: 6.5rem;
+  line-height: 6.5rem;
 
-      a {
-        color: #eb5757;
-        background-image: url(${logout});
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    }
+  border-top: 1px solid #e0e0e0;
+
+  button {
+    color: #eb5757;
+    background-image: url(${logout});
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+
+    padding-top: 0;
+    padding-left: 4.5rem;
+    padding-bottom: 0;
   }
 `;

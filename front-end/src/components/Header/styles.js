@@ -12,7 +12,7 @@ export const Container = styled.header`
   max-width: 135rem;
   margin: 0 auto;
 
-  @media (min-width: 558px) {
+  @media (min-width: 970px) {
     padding: 0 8rem;
   }
 `;

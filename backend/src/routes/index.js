@@ -26,4 +26,10 @@ routes.get("/login", (req, res) => {
   res.json({ success: false });
 });
 
+routes.get("/logout", (req, res) => {
+  req.logout();
+
+  res.status(205).json({ success: true });
+});
+
 export default routes;
