@@ -35,8 +35,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuthState = () => {
   const state = React.useContext(AuthContext);
-  console.log("useAuthState");
-  console.log(state);
 
   const isPending = state.status === "pending";
   const isError = state.status === "error";

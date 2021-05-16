@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import icon from "../../assets/images/menu-icon.svg";
 
@@ -8,6 +8,13 @@ export const Container = styled.header`
   align-items: center;
 
   padding: 0 2rem;
+
+  max-width: 135rem;
+  margin: 0 auto;
+
+  @media (min-width: 558px) {
+    padding: 0 8rem;
+  }
 `;
 
 export const MenuWrapper = styled.div`
@@ -15,19 +22,15 @@ export const MenuWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  img {
-    width: 3.2rem;
-    border-radius: 8px;
-    object-fit: cover;
+  @media (min-width: 558px) {
+    position: relative;
   }
 
-  & > a,
-  & > button {
-    display: none;
-
-    @media (min-width: 558px) {
-      display: block;
-    }
+  img {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 8px;
+    object-fit: cover;
   }
 `;
 
@@ -49,4 +52,12 @@ export const Button = styled.button`
   background-position: center;
   width: 20px;
   margin-left: 2rem;
+
+  z-index: 2;
+
+  ${(props) =>
+    props.open &&
+    css`
+      transform: rotate(180deg);
+    `}
 `;
