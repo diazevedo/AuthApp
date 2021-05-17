@@ -18,13 +18,19 @@ class FileController {
   }
 
   store(req, res) {
-    const file = {
-      id: req.file.id,
-      filename: req.file.filename,
-      originalname: req.file.metadata.originalname,
-    };
-
-    return res.status(201).json({ file });
+    console.log("sadl;kasdkjasdkljasdklj");
+    try {
+      console.log("TRRTURUTU");
+      const file = {
+        id: req.file.id,
+        filename: req.file.filename,
+        originalname: req.file.metadata.originalname,
+      };
+      return res.status(201).json({ file });
+    } catch (error) {
+      console.log("eeueueueueu");
+      return res.status(201).json({ error: "erro" });
+    }
   }
 }
 

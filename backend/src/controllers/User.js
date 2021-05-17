@@ -14,8 +14,8 @@ class UserController {
 
   async update(req, res) {
     const user = await User.findById(req.user._id);
-
-    req.body.password = await bcrypt.hash(req.body.password, 8);
+    if (req.body.password)
+      req.body.password = await bcrypt.hash(req.body.password, 8);
 
     user.overwrite(req.body);
     await user.save();
@@ -26,7 +26,7 @@ class UserController {
     File.gfs
       .find(
         {
-          "metadata.userId": req.user.id,
+          "metadata.userId": req.user._id,
         },
         { sort: { uploadDate: -1 } }
       )

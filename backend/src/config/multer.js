@@ -18,7 +18,7 @@ const storage = new GridFsStorage({
           filename: uuidv4(),
           bucketName: "profile-images",
           metadata: {
-            userId: req.user.id,
+            userId: req.user._id,
             originalname: file.originalname,
           },
         };

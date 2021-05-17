@@ -48,7 +48,7 @@ class App {
         DB.gfs
           .find(
             {
-              "metadata.userId": user.id,
+              "metadata.userId": user._id,
             },
             { sort: { uploadDate: -1 } }
           )
