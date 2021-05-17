@@ -5,7 +5,7 @@ import * as Styled from "./styles";
 
 const data = [
   {
-    link: "login with google",
+    link: "google",
     label: "login with google",
     icon: "google",
   },
@@ -27,8 +27,8 @@ const data = [
 ];
 
 function Socials() {
-  const handleClick = () => {
-    window.open("http://localhost:3333/auth/google", "_self");
+  const handleClick = (provider) => {
+    window.open(`${process.env.REACT_APP_API}/auth/${provider}`, "_self");
   };
 
   return (
@@ -37,7 +37,7 @@ function Socials() {
         <IconLink
           key={label}
           text={link}
-          handleClick={handleClick}
+          handleClick={() => handleClick(link)}
           icon={icon}
         />
       ))}

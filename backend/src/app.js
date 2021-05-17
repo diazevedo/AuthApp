@@ -69,6 +69,7 @@ class App {
         name: "auth-app",
         maxAge: 24 * 60 * 60 * 1000,
         keys: [process.env.SESSION_SECRET],
+        httpOnly: true,
       })
     );
 

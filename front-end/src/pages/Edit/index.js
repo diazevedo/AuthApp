@@ -75,7 +75,11 @@ const Edit = () => {
           <Styled.ImageContainer>
             <Styled.Label htmlFor="file">
               <img
-                src={`${process.env.REACT_APP_API}/files/${user.file.filename}`}
+                src={
+                  user.file.filename
+                    ? `${process.env.REACT_APP_API}/files/${user.file.filename}`
+                    : `https://picsum.photos/72`
+                }
                 alt="user"
                 ref={refImage}
               />

@@ -20,7 +20,7 @@ routes.get(
 );
 
 routes.get("/auth/facebook/loggedin", function (req, res) {
-  res.json({ message: "FACEBOOK", user: req.user });
+  res.redirect(process.env.APP_REDIRECT_URL);
 });
 
 export default routes;
