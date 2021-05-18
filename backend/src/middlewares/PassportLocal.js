@@ -15,7 +15,6 @@ passport.use(
       }
 
       const isPasspordCorrect = await bcrypt.compare(password, user.password);
-
       if (!isPasspordCorrect) {
         return done(null, false);
       }

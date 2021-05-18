@@ -1,4 +1,4 @@
-import { response, Router } from "express";
+import { Router } from "express";
 import passport from "passport";
 
 import "../middlewares/PassportLocal.js";
@@ -9,8 +9,6 @@ routes.post(
   "/login",
   function (req, res, next) {
     passport.authenticate("local", function (err, user, info) {
-      console.log("user");
-      console.log(user);
       req.logIn(user, (err) => {
         if (err) {
           req.error = "error";

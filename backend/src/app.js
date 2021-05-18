@@ -41,28 +41,19 @@ class App {
       done(null, user.id);
     });
 
-    passport.deserializeUser(function (id, done) {
-      User.findById(id, function (err, userFound) {
+    passport.deserializeUser(async function (id, done) {
+      User.findById(id, async function (err, userFound) {
         const { name = "", bio = "", phone = "", email, _id } = userFound._doc;
 
         const user = Object.assign({}, { name, bio, phone, email, _id });
-
-        DB.gfs
-          .find(
-            {
-              "metadata.userId": user._id,
-            },
-            { sort: { uploadDate: -1 } }
-          )
-          .toArray((err, files) => {
-            user.file = {};
-            if (!files || files.length === 0) {
-              done(err, user);
-            }
-
-            user.file = files[0];
-            done(err, user);
-          });
+        user.file = {};
+        try {
+          user.file = await DB.getFile(user._id);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          done(err, user);
+        }
       });
     });
 

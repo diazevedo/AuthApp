@@ -1,20 +1,15 @@
 import mongoose from "mongoose";
 
-import Mongo from "../database/index.js";
+import DB from "../database/index.js";
 
 class FileController {
   async index(req, res) {
-    Mongo.gfs
-      .find({
-        filename: req.params.filename,
-      })
-      .toArray((err, files) => {
-        if (!files || files.length === 0) {
-          return res.json({ message: "no found" });
-        }
-
-        Mongo.gfs.openDownloadStreamByName(req.params.filename).pipe(res);
-      });
+    try {
+      const stream = await DB.stream_file(req.params.filename);
+      stream.pipe(res);
+    } catch (error) {
+      res.status(401).json({ error });
+    }
   }
 
   store(req, res) {
@@ -24,6 +19,7 @@ class FileController {
         filename: req.file.filename,
         originalname: req.file.metadata.originalname,
       };
+
       return res.status(201).json({ file });
     } catch (error) {
       return res.status(401).json({ error });

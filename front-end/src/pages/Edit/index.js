@@ -12,25 +12,21 @@ import { useAuthState } from "../../Context/Auth";
 
 import api from "../../services/api";
 
-const defaultUserValues = {
-  name: "",
-  bio: "youe bio",
-  email: "",
-  phone: "99999",
-};
-
 const Edit = () => {
   const { state, update } = useAuthState();
 
   const { user } = state;
-  const [details, setDetails] = useState({ ...defaultUserValues, ...user });
+  const [details, setDetails] = useState(user);
+
   const [hasImageChanged, setHasImageChanged] = useState(false);
 
   const refFile = useRef(null);
   const refImage = useRef(null);
 
   const handleInputs = (e) => {
-    setDetails({ ...user, [e.target.name]: e.target.value });
+    setDetails({ ...details, [e.target.name]: e.target.value });
+
+    console.log(details);
   };
 
   const handleInputImage = (e) => {
@@ -100,7 +96,7 @@ const Edit = () => {
             name="name"
             placeholder="Enter your name..."
             id="name"
-            value={details.name}
+            value={details.name || "dedd"}
             onChange={handleInputs}
           />
 
@@ -119,7 +115,7 @@ const Edit = () => {
             placeholder="Enter your phone..."
             type="tel"
             id="phone"
-            value={details.phone}
+            value={details.phone || ""}
             onChange={handleInputs}
           />
 
