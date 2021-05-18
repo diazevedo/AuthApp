@@ -18,9 +18,7 @@ class FileController {
   }
 
   store(req, res) {
-    console.log("sadl;kasdkjasdkljasdklj");
     try {
-      console.log("TRRTURUTU");
       const file = {
         id: req.file.id,
         filename: req.file.filename,
@@ -28,8 +26,7 @@ class FileController {
       };
       return res.status(201).json({ file });
     } catch (error) {
-      console.log("eeueueueueu");
-      return res.status(201).json({ error: "erro" });
+      return res.status(401).json({ error });
     }
   }
 }

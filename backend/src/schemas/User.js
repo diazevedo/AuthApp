@@ -3,11 +3,10 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
   uiid: {
     type: String,
-    required: true,
   },
   name: {
     type: String,
-    required: true,
+    default: "",
   },
   bio: {
     type: String,
@@ -16,7 +15,6 @@ const UserSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: false,
   },
   email: {
     type: String,

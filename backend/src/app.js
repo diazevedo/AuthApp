@@ -43,7 +43,9 @@ class App {
 
     passport.deserializeUser(function (id, done) {
       User.findById(id, function (err, userFound) {
-        const user = Object.assign({}, userFound._doc);
+        const { name = "", bio = "", phone = "", email, _id } = userFound._doc;
+
+        const user = Object.assign({}, { name, bio, phone, email, _id });
 
         DB.gfs
           .find(

@@ -9,13 +9,26 @@ class UserController {
   }
 
   async store(req, res) {
-    return res.json({ message: "UserController store" });
+    req.body.password = await bcrypt.hash(req.body.password, 8);
+    const user = await User.create(req.body);
+
+    const { name, bio, email } = user;
+
+    const userReturned = {
+      name,
+      bio,
+      email,
+    };
+
+    return res.status(201).json({ user: userReturned });
   }
 
   async update(req, res) {
     const user = await User.findById(req.user._id);
+
     if (req.body.password)
       req.body.password = await bcrypt.hash(req.body.password, 8);
+    else req.body.password = user.password;
 
     user.overwrite(req.body);
     await user.save();
