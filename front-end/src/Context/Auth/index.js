@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   React.useEffect(() => {
     const login = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3333/", {
+        const { data } = await axios.get(process.env.REACT_APP_API, {
           withCredentials: true,
         });
 
