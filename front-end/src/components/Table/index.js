@@ -32,7 +32,7 @@ const Table = () => {
               <img
                 src={
                   user.file.filename
-                    ? `${process.env.REACT_APP_API}/files/${user.file.filename}`
+                    ? `${process.env.REACT_APP_API}files/${user.file.filename}`
                     : `https://picsum.photos/72`
                 }
                 alt={`${user.name}'s profile`}

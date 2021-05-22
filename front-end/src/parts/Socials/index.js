@@ -28,7 +28,7 @@ const data = [
 
 function Socials() {
   const handleClick = (provider) => {
-    window.open(`${process.env.REACT_APP_API}/auth/${provider}`, "_self");
+    window.open(`${process.env.REACT_APP_API}auth/${provider}`, "_self");
   };
 
   return (
